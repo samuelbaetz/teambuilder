@@ -1,0 +1,26 @@
+{
+  "name": "teambuilder",
+  "version": "1.0.0",
+  "description": "Builds a team and outputs and html file",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelbaetz/teambuilder.git"
+  },
+  "author": "Sam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samuelbaetz/teambuilder/issues"
+  },
+  "homepage": "https://github.com/samuelbaetz/teambuilder#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3"
+  }
+}
