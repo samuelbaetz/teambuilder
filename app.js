@@ -8,11 +8,13 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./lib/htmlRenderer");
+const render = require("./htmlRenderer");
 
+var employees = []
 async function create() {
     var teamsize
-    var team = ""
+    
+   
     await inquirer.prompt(
         {
             type: 'number',
@@ -73,11 +75,12 @@ async function create() {
                     }
                 ])
                 .then((answers) => {
-                    var manager = new Manager(name, phone, email, answers.numberofsuper)
-                    teamMember = fs.readFileSync('templates/manager.html')
-
-                    team = team + "\n" + eval('`'+ teamMember +'`');
+                    const manager = new Manager(name, phone, email, answers.numberofsuper)
+                    employees.push(manager)   
+                    render(employees)
+                              
                 })
+
                 break;
             case "Intern":
                 await inquirer.prompt([
@@ -88,9 +91,10 @@ async function create() {
                     }
                 ])
                 .then((answers) => {
-                    var intern = new Intern(name, phone, email, answers.uni)
-                    teamMember = fs.readFileSync('templates/intern.html')
-                    team = team + "\n" + eval('`' + teamMember + '`')
+                    const intern = new Intern(name, phone, email, answers.uni)
+                    
+                    employees.push(intern)
+                    render(employees)
                 })
                 break;
                 case "Engineer":
@@ -102,25 +106,22 @@ async function create() {
                         }
                     ])
                     .then((answers) => {
-                        var engineer = new Engineer(name, phone, email, answers.github)
-                        teamMember = fs.readFileSync('templates/engineer.html')
-                        team = team + "\n" + eval('`' + teamMember + '`')
+                        const engineer = new Engineer(name, phone, email, answers.github)
+                       employees.push(engineer)
+                       render(employees)
                     })
                     break;
         }
         
     }
 
-    var main = fs.readFileSync('templates/main.html')
-    team = eval('`' + main + '`')
-    fs.writeFile('output/team.html', team, function(err){
-        if(err){
-            console.log('OH NOOO')
-        }
+   
+   
 
-        console.log('All done!')
-    })
-    console.log(team)
+    
+    console.log(employees)
+    
 }
-
+module.exports = employees
 create()
+
